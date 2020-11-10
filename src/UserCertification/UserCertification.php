@@ -10,7 +10,7 @@ class UserCertification
     public static function routes(string $prefix = '')
     {
         Route::group([
-            'namespace' => '\MrwangTc\UserCertification\UserCertification\Controller',
+            'namespace' => '\MrwangTc\UserCertification\Certification\Controller',
             'prefix'    => $prefix,
         ], function (Router $router) {
             $router->post('usercertification', 'UserCertificationController@store');
