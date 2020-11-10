@@ -9,8 +9,8 @@ class ServiceProvider extends LaravelServiceProvider
     public function boot(): void
     {
         if ($this->app->runningInConsole()) {
-            $this->publishes([__DIR__ . '/config/config.php' => config_path('usercertification.php')]);
-            $this->publishes([__DIR__ . '/database/migrations/' => database_path('migrations')]);
+            $this->publishes([__DIR__ . '/../config/config.php' => config_path('usercertification.php')]);
+            $this->publishes([__DIR__ . '/../database/migrations/' => database_path('migrations')]);
         }
     }
 

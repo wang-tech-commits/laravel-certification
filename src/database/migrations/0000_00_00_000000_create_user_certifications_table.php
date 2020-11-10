@@ -19,8 +19,9 @@ class CreateUserCertificationsTable extends Migration
             $table->boolean('verified')->default(0);
             $table->string('name', 32);
             $table->string('id_card', 32);
-            $table->string('front_card');
-            $table->string('back_card');
+            $table->string('phone', 16)->nullable();
+            $table->string('front_card')->nullable();
+            $table->string('back_card')->nullable();
             $table->timestamps();
         });
     }
