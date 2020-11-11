@@ -2,15 +2,22 @@
 
 namespace MrwangTc\UserCertification\Certification\Controller;
 
-use MrwangTc\UserCertification\Certification\Models\UserCertification;
-use MrwangTc\UserCertification\Certification\Requests\UserCertificationRequest;
 use Illuminate\Routing\Controller;
 use Jason\Api;
 use Jason\Api\Traits\ApiResponse;
+use MrwangTc\UserCertification\Certification\Models\UserCertification;
+use MrwangTc\UserCertification\Certification\Requests\UserCertificationRequest;
+use MrwangTc\UserCertification\Certification\Resources\CertificationResource;
 
 class UserCertificationController extends Controller
 {
     use ApiResponse;
+
+    public function index()
+    {
+        $user = Api::user();
+        return $this->success(new CertificationResource($user->userCertification));
+    }
 
     public function store(UserCertificationRequest $request)
     {
