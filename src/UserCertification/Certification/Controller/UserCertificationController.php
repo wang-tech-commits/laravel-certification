@@ -16,21 +16,29 @@ class UserCertificationController extends Controller
     public function index()
     {
         $user = Api::user();
+
         return $this->success(new CertificationResource($user->userCertification));
     }
 
     public function store(UserCertificationRequest $request)
     {
+        $user = Api::user();
+        if ($user->is_verified) {
+            return $this->failed('用户已认证');
+        }
         $result = UserCertification::updateOrCreate([
-            'user_id' => Api::id(),
+            'user_id' => $user->id,
         ], [
             'name'        => $request->name,
             'id_card'     => $request->id_card,
-            'front_card'  => $request->front_card,
-            'back_card'   => $request->back_card,
+            'phone'       => $request->phone ?? '',
+            'front_card'  => $request->front_card ?? '',
+            'back_card'   => $request->back_card ?? '',
         ]);
-        if($result){
+        if ($result) {
             return $this->success('操作成功');
+        } else {
+            return $this->failed('操作失败');
         }
     }
 }
