@@ -7,6 +7,9 @@ return [
      */
     'user_model' => App\Models\User::class,
 
+    /**
+     * 专门用作实名验证的类  eg : 'verified_class' => new UserCertification(),
+     */
     'verified_class' => '',
 
     'verified_default' => 0,

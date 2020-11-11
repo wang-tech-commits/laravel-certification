@@ -22,11 +22,11 @@ php artisan migrate
 ```php
 <?php
 
-use MrwangTc\UserCertification\Certification\Traits\HasUserCertification;
+use MrwangTc\UserCertification\Certification\Traits\UserHasCertification;
 
 class User {
 
-    use HasUserCertification;
+    use UserHasCertification;
 }
 ```
 
