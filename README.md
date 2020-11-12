@@ -1,6 +1,6 @@
 # laravel-certification
 
-> 收货地址组件
+> 个人认证
 ## 1.安装
 
 ```shell script
