@@ -12,14 +12,14 @@ class CertificationResource extends JsonResource
         return [
             'certification_id' => $this->id,
             'name'             => $this->name,
-            'idcard'           => $this->idcard,
-            'phone'            => $this->when(config('open_phone_verified'), function(){
+            'idcard'           => $this->id_card,
+            'phone'            => $this->when(config('usercertification.open_phone_verified'), function(){
                 return $this->phone;
             }),
-            'front_card'       => $this->when(config('open_card_verified'), function(){
+            'front_card'       => $this->when(config('usercertification.open_card_verified'), function(){
                 return Storage::url($this->front_card);
             }),
-            'back_card'       => $this->when(config('open_card_verified'), function(){
+            'back_card'       => $this->when(config('usercertification.open_card_verified'), function(){
                 return Storage::url($this->back_card);
             }),
             'created_at'       => (string)$this->created_at,
