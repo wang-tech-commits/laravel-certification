@@ -13,8 +13,8 @@ class UserCertification
             'namespace' => '\MrwangTc\UserCertification\Certification\Controller',
             'prefix'    => $prefix,
         ], function (Router $router) {
-            $router->get('usercertification', 'UserCertificationController@index');
-            $router->post('usercertification', 'UserCertificationController@store');
+            $router->get('certification/personal', 'UserCertificationController@index');
+            $router->post('certification/personal', 'UserCertificationController@store');
         });
     }
 }
