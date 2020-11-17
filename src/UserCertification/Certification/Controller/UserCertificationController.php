@@ -30,9 +30,19 @@ class UserCertificationController extends Controller
         }
         $instance = config('usercertification.verified_class');
         if ($instance instanceof VerifiedCertification) {
-            $verified = $instance->autoVerified();
+            $keys = [
+                'name'   => $request->name,
+                'idcard' => $request->id_card,
+            ];
+            if (config('usercertification.is_three_key_element') === true) {
+                array_push($keys, ['mobile' => $request->phone]);
+            }
+            $verified = $instance->autoVerified($keys);
         } else {
             $verified = config('usercertification.verified_default');
+        }
+        if (!$verified) {
+            return $this->failed('认证不通过');
         }
         $result = UserCertification::updateOrCreate([
             'user_id' => $user->id,
