@@ -6,6 +6,6 @@ trait CertificationTrait
 {
     public function autoVerified()
     {
-        return 0;
+
     }
 }

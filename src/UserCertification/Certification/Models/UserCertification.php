@@ -14,19 +14,19 @@ class UserCertification extends Model implements VerifiedCertification
 
     protected $guarded = [];
 
-    protected static function boot()
-    {
-        parent::boot();
-
-        self::creating(function ($certification) {
-            $instance = config('usercertification.verified_class');
-            if ($instance instanceof VerifiedCertification) {
-                $certification->verified = $instance->autoVerified();
-            } else {
-                $certification->verified = config('usercertification.verified_default');
-            }
-        });
-    }
+//    protected static function boot()
+//    {
+//        parent::boot();
+//
+//        self::creating(function ($certification) {
+//            $instance = config('usercertification.verified_class');
+//            if ($instance instanceof VerifiedCertification) {
+//                $certification->verified = $instance->autoVerified();
+//            } else {
+//                $certification->verified = config('usercertification.verified_default');
+//            }
+//        });
+//    }
 
     public function user()
     {
