@@ -1,5 +1,7 @@
 <?php
 
+use MrwangTc\UserCertification\Certification\Models\UserCertification;
+
 return [
 
     /**
@@ -9,8 +11,9 @@ return [
 
     /**
      * 专门用作实名验证的类  eg : 'verified_class' => new UserCertification(),
+     * 默认自动关联阿里云认证接口
      */
-    'verified_class' => '',
+    'verified_class' => new UserCertification(),
 
     'verified_default' => 0,
 
@@ -29,5 +32,10 @@ return [
      * 默认为2要素 为true时开启3要素
      */
     'is_three_key_element' => false,
+
+    /**
+     * 接口请求方式
+     */
+    'request_method'       => 'get',
 
 ];

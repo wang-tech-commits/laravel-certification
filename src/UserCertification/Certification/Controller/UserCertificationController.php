@@ -3,6 +3,7 @@
 namespace MrwangTc\UserCertification\Certification\Controller;
 
 use Illuminate\Routing\Controller;
+use Illuminate\Support\Arr;
 use Jason\Api;
 use Jason\Api\Traits\ApiResponse;
 use MrwangTc\UserCertification\Certification\Contracts\VerifiedCertification;
@@ -32,17 +33,19 @@ class UserCertificationController extends Controller
         if ($instance instanceof VerifiedCertification) {
             $keys = [
                 'name'   => $request->name,
-                'idcard' => $request->id_card,
             ];
             if (config('usercertification.is_three_key_element') === true) {
-                array_push($keys, ['mobile' => $request->phone]);
+                $keys = Arr::add($keys, 'idcard', $request->id_card);
+                $keys = Arr::add($keys, 'mobile', $request->phone);
+            } else {
+                $keys = Arr::add($keys, 'idCard', $request->id_card);
             }
             $verified = $instance->autoVerified($keys);
         } else {
             $verified = config('usercertification.verified_default');
         }
         if (!$verified) {
-            return $this->failed('认证不通过');
+            return $this->failed($instance->getErrorMessage(), 422);
         }
         $result = UserCertification::updateOrCreate([
             'user_id' => $user->id,
