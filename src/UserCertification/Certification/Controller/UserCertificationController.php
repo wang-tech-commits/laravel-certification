@@ -29,24 +29,30 @@ class UserCertificationController extends Controller
         if ($user->is_verified) {
             return $this->failed('用户已认证');
         }
+        $apiCheck = config('usercertification.open_api_verify');
         $instance = config('usercertification.verified_class');
-        if ($instance instanceof VerifiedCertification) {
-            $keys = [
-                'name'   => $request->name,
-            ];
-            if (config('usercertification.is_three_key_element') === true) {
-                $keys = Arr::add($keys, 'idcard', $request->id_card);
-                $keys = Arr::add($keys, 'mobile', $request->phone);
+        if ($apiCheck === true) {
+            if ($instance instanceof VerifiedCertification) {
+                $keys = [
+                    'name' => $request->name,
+                ];
+                if (config('usercertification.is_three_key_element') === true) {
+                    $keys = Arr::add($keys, 'idcard', $request->id_card);
+                    $keys = Arr::add($keys, 'mobile', $request->phone);
+                } else {
+                    $keys = Arr::add($keys, 'idCard', $request->id_card);
+                }
+                $verified = $instance->autoVerified($keys);
             } else {
-                $keys = Arr::add($keys, 'idCard', $request->id_card);
+                $verified = config('usercertification.verified_default');
             }
-            $verified = $instance->autoVerified($keys);
+            if (!$verified) {
+                return $this->failed($instance->getErrorMessage(), 422);
+            }
         } else {
-            $verified = config('usercertification.verified_default');
+            $verified = 1;
         }
-        if (!$verified) {
-            return $this->failed($instance->getErrorMessage(), 422);
-        }
+
         $result = UserCertification::updateOrCreate([
             'user_id' => $user->id,
         ], [

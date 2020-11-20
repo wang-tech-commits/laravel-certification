@@ -22,6 +22,12 @@ return [
     'open_card_verified'   => 0,
 
     /**
+     * 开启接口自动验证，为真时才走验证接口
+     * 其他默认通过
+     */
+    'open_api_verify' => false,
+
+    /**
      * 调用阿里云市场个人认证接口的配置信息
      */
     'app_code'             => '',

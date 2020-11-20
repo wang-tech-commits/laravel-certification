@@ -25,7 +25,7 @@ trait CertificationTrait
             return false;
         }
         $apiCode = config('usercertification.app_code');
-        if (empty($apiUrl)) {
+        if (empty($apiCode)) {
             $this->setErrorMessage('请配置接口Code');
             return false;
         }
