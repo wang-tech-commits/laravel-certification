@@ -19,7 +19,9 @@ class UserCertificationController extends Controller
     public function index()
     {
         $user = Api::user();
-
+        if (!$user->userCertification) {
+            return $this->success('暂无认证记录');
+        }
         return $this->success(new CertificationResource($user->userCertification));
     }
 
