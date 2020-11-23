@@ -16,4 +16,12 @@ trait UserHasCertification
     {
         return $this->userCertification && ($this->userCertification->verified == 1);
     }
+
+    public function nickname($value)
+    {
+        $result = $this->info()->update([
+            'nickname' => $value,
+        ]);
+        return $result;
+    }
 }

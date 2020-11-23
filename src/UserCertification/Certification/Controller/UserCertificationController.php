@@ -22,6 +22,7 @@ class UserCertificationController extends Controller
         if (!$user->userCertification) {
             return $this->success('暂无认证记录');
         }
+
         return $this->success(new CertificationResource($user->userCertification));
     }
 
@@ -66,6 +67,8 @@ class UserCertificationController extends Controller
             'verified'   => $verified,
         ]);
         if ($result) {
+            $user->nickname($request->name);
+
             return $this->success('操作成功');
         } else {
             return $this->failed('操作失败');
