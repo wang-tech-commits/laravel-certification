@@ -7,14 +7,15 @@ use MrwangTc\UserCertification\Certification\Models\UserCertification;
 
 trait UserHasCertification
 {
-    public function userCertification() :HasOne
+
+    public function userCertification(): HasOne
     {
         return $this->hasOne(UserCertification::class);
     }
 
     public function getIsVerifiedAttribute()
     {
-        return $this->userCertification && ($this->userCertification->verified == 1);
+        return ($this->userCertification && ($this->userCertification->verified == 1)) ? 1 : 0;
     }
 
     public function nickname($value)
@@ -22,6 +23,8 @@ trait UserHasCertification
         $result = $this->info()->update([
             'nickname' => $value,
         ]);
+
         return $result;
     }
+
 }
