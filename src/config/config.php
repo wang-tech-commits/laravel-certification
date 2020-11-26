@@ -25,7 +25,15 @@ return [
      * 开启接口自动验证，为真时才走验证接口
      * 其他默认通过
      */
-    'open_api_verify' => false,
+    'open_api_verify'      => false,
+
+    /**
+     * 是否开启OCR认证，接口暂为百度云
+     */
+    'open_ocr_verify'      => false,
+    'open_ocr_appid'       => '',
+    'open_ocr_secretkey'   => '',
+    'open_ocr_url'         => '',
 
     /**
      * 调用阿里云市场个人认证接口的配置信息

@@ -32,18 +32,20 @@ class UserCertificationController extends Controller
         if ($user->is_verified) {
             return $this->failed('用户已认证');
         }
-        $apiCheck = config('usercertification.open_api_verify');
-        $instance = config('usercertification.verified_class');
+        $apiCheck    = config('usercertification.open_api_verify');
+        $instance    = config('usercertification.verified_class');
+        $apiOcrCheck = config('usercertification.open_ocr_verify');
+        if ($apiOcrCheck === true) {
+
+        }
         if ($apiCheck === true) {
             if ($instance instanceof VerifiedCertification) {
                 $keys = [
-                    'name' => $request->name,
+                    'name'   => $request->name,
+                    'idcard' => $request->id_card,
                 ];
                 if (config('usercertification.is_three_key_element') === true) {
-                    $keys = Arr::add($keys, 'idcard', $request->id_card);
                     $keys = Arr::add($keys, 'mobile', $request->phone);
-                } else {
-                    $keys = Arr::add($keys, 'idCard', $request->id_card);
                 }
                 $verified = $instance->autoVerified($keys);
             } else {

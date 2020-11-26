@@ -52,8 +52,13 @@ trait CertificationTrait
                     return false;
                 }
             } else {
-                if ($result->status == '01') {
-                    return true;
+                if ($result->code == 200 && $result->success === true) {
+                    if ($result->data->result == 0) {
+                        return true;
+                    } else {
+                        $this->setErrorMessage($result->data->desc);
+                        return false;
+                    }
                 } else {
                     $this->setErrorMessage($result->msg);
                     return false;
