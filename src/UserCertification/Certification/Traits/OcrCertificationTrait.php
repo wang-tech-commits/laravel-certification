@@ -2,6 +2,8 @@
 
 namespace MrwangTc\UserCertification\Certification\Traits;
 
+use GuzzleHttp\Client;
+
 trait OcrCertificationTrait
 {
 
