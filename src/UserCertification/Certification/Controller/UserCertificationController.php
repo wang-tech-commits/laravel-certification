@@ -37,20 +37,26 @@ class UserCertificationController extends Controller
         $apiOcrCheck = config('usercertification.open_ocr_verify');
         if ($apiOcrCheck === true) {
             if ($instance instanceof VerifiedCertification) {
-                $verified = $instance->ocrVerified(\Storage::url($request->front_card), 'front');
+
+                $verified = $instance->ocrVerified(Storage::url($request->front_card), 'front');
                 if (!$verified) {
                     return $this->failed($instance->getErrorMessage(), 422);
                 } else {
                     if ($verified['words_result']['姓名']['words'] != $request->name) {
-                        return $this->failed('图片与填写信息不符');
+                        return $this->failed('正面图片与填写信息不符');
                     }
                     if ($verified['words_result']['公民身份号码']['words'] != $request->id_card) {
-                        return $this->failed('图片与填写信息不符');
+                        return $this->failed('正面图片与填写信息不符');
                     }
                 }
-                $verified = $instance->ocrVerified(\Storage::url($request->back_card), 'back');
+                $verified = $instance->ocrVerified(Storage::url($request->back_card), 'back');
+
                 if (!$verified) {
                     return $this->failed($instance->getErrorMessage(), 422);
+                } else {
+                    if ($verified['image_status'] != 'normal') {
+                        return $this->failed('背面图片与填写信息不符');
+                    }
                 }
             }
         }
