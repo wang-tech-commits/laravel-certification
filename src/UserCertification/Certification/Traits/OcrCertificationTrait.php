@@ -40,6 +40,10 @@ trait OcrCertificationTrait
 
             return false;
         } else {
+            if (empty($result['words_result']) || !isset($result['words_result'])) {
+                $this->setErrorMessage('图片未识别');
+                return false;
+            }
             return $result;
         }
     }

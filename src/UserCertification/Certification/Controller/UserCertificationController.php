@@ -10,6 +10,7 @@ use MrwangTc\UserCertification\Certification\Contracts\VerifiedCertification;
 use MrwangTc\UserCertification\Certification\Models\UserCertification;
 use MrwangTc\UserCertification\Certification\Requests\UserCertificationRequest;
 use MrwangTc\UserCertification\Certification\Resources\CertificationResource;
+use Illuminate\Support\Facades\Storage;
 
 class UserCertificationController extends Controller
 {
