@@ -11,7 +11,7 @@ class UserCertificationRequest extends FormRequest
     {
         return [
             'name'       => 'required|min:2|max:5',
-            'id_card'    => ['required', new IdCardRule()],
+            'id_card'    => ['required', new IdCardRule(), 'unique:user_certifications'],
             'phone'      => [Rule::requiredIf(config('usercertification.open_phone_verified')), 'phone:CN,mobile'],
             'front_card' => [Rule::requiredIf(config('usercertification.open_card_verified'))],
             'back_card'  => [Rule::requiredIf(config('usercertification.open_card_verified'))],
@@ -25,6 +25,7 @@ class UserCertificationRequest extends FormRequest
             'name.min'            => '认证用户姓名至少:min个字符',
             'name.max'            => '认证用户姓名最多:max个字符',
             'id_card.required'    => '身份证号必须填写',
+            'id_card.unique'      => '身份证号已存在',
             'phone.required'      => '手机号必须填写',
             'phone.phone'         => '手机号校验不通过',
             'front_card.required' => '身份证正面图片必须上传',
